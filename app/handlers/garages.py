@@ -77,9 +77,9 @@ def car_add():
     return jsonify(response_data)
 
 @bp.route('/car', methods=["GET"])
-def car_get():    
-    logging.warning(garage_id)
-    
+def car_get():        
+    logging.warning(request.args)
+
     cars = []
     if request.args and "garage_id" in request.args:
         garage_id = request.args.get('garage_id')

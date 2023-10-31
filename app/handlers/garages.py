@@ -77,12 +77,21 @@ def car_add():
     return jsonify(response_data)
 
 @bp.route('/car', methods=["GET"])
-def car_get():
-    logging.warning(request.json)
-    
-    garage_id = request.json.pop('garage_id')
-    
-    cars = Garage.list(garage_id=garage_id)
+def car_get():    
+    garage_id = request.args.get('garage_id')
 
-    return jsonify(cars)
+    logging.warning(garage_id)
+    
+    cars = Car.list(garage_id=int(garage_id))
 
+    return jsonify(
+        [
+            {
+                'id': car.id,
+                'name': car.name,
+                'owner': car.owner,
+                'price': car.price
+            } for car in cars
+        ]
+    )
+ 

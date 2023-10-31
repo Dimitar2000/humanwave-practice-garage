@@ -20,7 +20,7 @@
             <car-form @submit-data="addCarToGarage"></car-form>
         </div>
         <div class="garage-cars-list">
-            <car-list :cars="cars"></car-list>
+            <car-list :cars="cars" @remove-car="removeCarFromGarage"></car-list>
         </div>
     </div>
 </template>
@@ -72,6 +72,18 @@
                 }).always(() => {
                 })
             },
+            removeCarFromGarage(car_id) {
+                $.ajax({
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    url: `/garages/car`,
+                    data: JSON.stringify({car_id: car_id})
+                }).then((data) => {
+                    console.log("Car was removed from garage: ", data);
+                    this.refresh();
+                }).always(() => {
+                })
+            },
             deleteGarage() {
                 $.ajax({
                     type: 'DELETE',
@@ -94,6 +106,8 @@
                     Object.assign(this.updated_garage, this.garage)
                 }).always(() => {
                 })
+
+                this.load_cars();
             },
             load_cars() {
                 $.ajax({

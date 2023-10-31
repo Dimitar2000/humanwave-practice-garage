@@ -19,7 +19,7 @@
         <div v-if="displayCarForm" >
             <car-form @submit-data="addCarToGarage"></car-form>
         </div>
-    </div>
+            </div>
 </template>
 
 <script>
@@ -58,7 +58,7 @@
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json',
-                    url: `/garage/car`,
+                    url: `/garages/car`,
                     data: JSON.stringify({carData: carData, garage_id: this.garage.id})
                 }).then((data) => {
                     console.log("Car was added to garage: ", carData);

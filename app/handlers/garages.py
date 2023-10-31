@@ -1,5 +1,6 @@
 from flask import Blueprint, abort, jsonify, request
 from shared.model.garage import Garage
+from shared.model.car import Car
 import logging
 
 bp = Blueprint(name='garages', import_name=__name__, url_prefix='/garages')
@@ -58,3 +59,20 @@ def garage_delete():
     garage = Garage.get(key=request.json.pop('garage'))
     garage.delete()
     return jsonify({'status': 'OK'})
+
+@bp.route('/car', methods=["POST"])
+def car_add():
+    logging.warning(request.json)
+    
+    garage_id = request.json.pop('garage_id')
+    car_data  = request.json.pop('carData')
+
+    car_data['garage_id'] = garage_id
+
+    new_car_id = Car.add(props=car_data).id()
+
+    response_data = car_data
+    response_data['id'] = new_car_id
+
+    return jsonify(response_data)
+    

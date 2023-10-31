@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h3>Name: {{ name }}</h3>
-    <h3>Owner: {{ owner }}</h3>
-    <h3>Price: {{ price }}</h3>
+  <div class="card body">
+    <label>Name: {{ name }}</label>
+    <label>Owner: {{ owner }}</label>
+    <label>Price: {{ price }}</label>
   </div>
 </template>
 
@@ -23,6 +23,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.card {
+    border: black 18rem;
+}
 
 </style>

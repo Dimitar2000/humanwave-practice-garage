@@ -78,11 +78,14 @@ def car_add():
 
 @bp.route('/car', methods=["GET"])
 def car_get():    
-    garage_id = request.args.get('garage_id')
-
     logging.warning(garage_id)
     
-    cars = Car.list(garage_id=int(garage_id))
+    cars = []
+    if request.args and "garage_id" in request.args:
+        garage_id = request.args.get('garage_id')
+        cars = Car.list(garage_id=int(garage_id))
+    else:
+        cars = Car.list()
 
     return jsonify(
         [

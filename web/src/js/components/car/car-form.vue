@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             <label class="col-sm-4">Price</label>
-            <input type="number" class="col-sm-8" v-model="newCar.price"/>
+            <input type="number" class="col-sm-8" v-model.number="newCar.price"/>
         </div>
         <div class="row">
             <label class="col-sm-4">Owner</label>
@@ -28,7 +28,7 @@
                 newCar: {
                     name: '',
                     owner: '',
-                    price: ''
+                    price: null
                 }
             }
         },
@@ -41,7 +41,7 @@
                 this.newCar = {
                     name: '',
                     owner: '',
-                    price: ''
+                    price: null
                 }
             },
 

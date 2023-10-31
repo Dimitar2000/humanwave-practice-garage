@@ -17,7 +17,7 @@
             <garage-form :garage="garage" @change="editing = false; Object.assign(updated_garage, garage)"></garage-form>
         </div>
         <div v-if="displayCarForm" >
-            <car-form></car-form>
+            <car-form @submit-data="addCarToGarage"></car-form>
         </div>
     </div>
 </template>
@@ -54,19 +54,17 @@
             toggleDisplayCarForm() {
                 this.displayCarForm = !this.displayCarForm;
             },
-            // save() {
-            //     this.editing = false
-            //     $.ajax({
-            //         type: 'PUT',
-            //         contentType: 'application/json',
-            //         url: `/garages/`,
-            //         data: JSON.stringify(this.garage)
-            //     }).then((data) => {
-            //         // this.$emit('change', data)
-            //         Object.assign(this.updated_garage, this.garage)
-            //     }).always(() => {
-            //     })
-            // },
+            addCarToGarage(carData) {
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    url: `/garage/car`,
+                    data: JSON.stringify({carData: carData, garage_id: this.garage.id})
+                }).then((data) => {
+                    console.log("Car was added to garage: ", carData);
+                }).always(() => {
+                })
+            },
             deleteGarage() {
                 $.ajax({
                     type: 'DELETE',

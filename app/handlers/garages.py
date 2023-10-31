@@ -98,3 +98,8 @@ def car_get():
         ]
     )
  
+@bp.route('/car', methods=["DELETE"])
+def car_delete():
+    car = Car.get(key=request.json.pop('car_id'))
+    car.delete()
+    return jsonify({'status': 'OK'})

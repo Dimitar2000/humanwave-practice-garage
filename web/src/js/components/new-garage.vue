@@ -21,6 +21,7 @@
 <script>
     export default {
         name: "new-garage",
+        emits: ["change"],
         data() {
             return {
                 garage: {
@@ -46,6 +47,12 @@
                     // this.loading = false
                 })
             },
+
+            resetForm() {
+                this.garage.name = '';
+                this.garage.brand = '';
+                this.garage.postal_country = '';
+            }
         }
     }
 </script>

@@ -53,6 +53,7 @@
         },
         mounted() {
             this.updated_garage = Object.assign({}, this.garage)
+            this.load_cars()
         },
         computed: {
             addCarButtonLabel() {
@@ -97,7 +98,17 @@
                     Object.assign(this.updated_garage, this.garage)
                 }).always(() => {
                 })
-            }
+            },
+            load_cars() {
+                $.ajax({
+                    type: 'GET',
+                    contentType: 'application/json',
+                    url: `/garages/car?garage_id=${this.garage.id}`
+                }).then((data) => {
+                    console.log("Cars fetched: ", data)
+                    this.cars = data
+                }).always(() => {})
+            } 
         },
         watch: {
             garage(g) {

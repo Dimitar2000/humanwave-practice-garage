@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>Name: {{ name }}</h2>
-    <h2>Owner: {{ owner }}</h2>
+    <h3>Name: {{ name }}</h3>
+    <h3>Owner: {{ owner }}</h3>
     <h3>Price: {{ price }}</h3>
   </div>
 </template>
@@ -16,7 +16,8 @@ export default {
             required: true
         },
         price: {
-            required: true
+            required: true,
+            type: Number
         }
     }
 }

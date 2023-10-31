@@ -1,26 +1,30 @@
 <template>
     <div class="garage-item-grid">
-        <div class="garage-name">
-            <span class="name">{{ garage.name }}</span>
-            <button @click="refresh">Refresh</button>
-            <button @click="toggleDisplayCarForm">{{ addCarButtonLabel }}</button>
-            <template v-if="!editing">
-                <button type="button" class="btn btn-primary" @click="editing=!editing">Edit</button>
-                <button type="button" class="btn btn-danger" @click="deleteGarage">Delete</button>
-            </template>
-            <template v-else>
-                <!--<button type="button" class="btn btn-primary" @click="save">Save</button>-->
-                <button type="button" class="btn btn-default" @click="editing=!editing; Object.assign(garage, updated_garage)">Cancel</button>
-            </template>
+        <div>
+            <div class="garage-name">
+                <span class="name">{{ garage.name }}</span>
+                <button @click="refresh">Refresh</button>
+                <button @click="toggleDisplayCarForm">{{ addCarButtonLabel }}</button>
+                <template v-if="!editing">
+                    <button type="button" class="btn btn-primary" @click="editing=!editing">Edit</button>
+                    <button type="button" class="btn btn-danger" @click="deleteGarage">Delete</button>
+                </template>
+                <template v-else>
+                    <!--<button type="button" class="btn btn-primary" @click="save">Save</button>-->
+                    <button type="button" class="btn btn-default" @click="editing=!editing; Object.assign(garage, updated_garage)">Cancel</button>
+                </template>
+            </div>
+            <div v-if="editing" class="edit-garage">
+                <garage-form :garage="garage" @change="editing = false; Object.assign(updated_garage, garage)"></garage-form>
+            </div>
         </div>
-        <div v-if="editing" class="edit-garage">
-            <garage-form :garage="garage" @change="editing = false; Object.assign(updated_garage, garage)"></garage-form>
-        </div>
-        <div v-if="displayCarForm" >
-            <car-form @submit-data="addCarToGarage"></car-form>
-        </div>
-        <div class="garage-cars-list">
-            <car-list :cars="cars" @remove-car="removeCarFromGarage"></car-list>
+        <div class="garage-cars">
+            <div v-if="displayCarForm">
+                <car-form @submit-data="addCarToGarage"></car-form>
+            </div>
+            <div>
+                <car-list :cars="cars" @remove-car="removeCarFromGarage"></car-list>
+            </div>
         </div>
     </div>
 </template>
@@ -136,7 +140,7 @@
 		grid-gap: 10px;
 		grid-auto-rows: min-content;
 		grid-template-areas:
-			"garage-name edit-garage";
+			"garage-name edit-garage garage-cars";
 	}
 
     .garage-name {

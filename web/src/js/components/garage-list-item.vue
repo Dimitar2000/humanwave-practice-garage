@@ -59,7 +59,7 @@
                     url: `/garages/`,
                     data: JSON.stringify({'garage': this.garage.id})
                 }).then((data) => {
-                    this.$emit('change', data)
+                    this.$emit('change-delete', this.garage.id)
                 }).always(() => {
                 })
             },

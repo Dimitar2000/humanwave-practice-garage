@@ -8,7 +8,7 @@
 		<ul class="list-group">
 		    <li v-for="g in garageList" class="list-group-item" :key="g.id">
 				<!-- when a garage item is deleted it will raise change event and return the new list -->
-				<garage-list-item :garage="g" @change="garageList=$event.data">hello</garage-list-item>
+				<garage-list-item :garage="g" @change-delete="deleteGarage">hello</garage-list-item>
 			</li>
 		</ul>
 	</div>
@@ -46,6 +46,11 @@
 			addGarage(garage_data) {
 				console.log("Event: ", garage_data);
 				this.garageList.push(garage_data)
+			},
+
+			deleteGarage(id)
+			{
+				this.garageList = this.garageList.filter((gar) => gar.id !== id);
 			}
 		},
 		created: function() {

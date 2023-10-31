@@ -34,7 +34,7 @@
         },
         methods:{
             save() {
-                this.$emit("submit-data");
+                this.$emit("submit-data", this.newCar);
                 this.resetForm();
             },
             resetForm() {

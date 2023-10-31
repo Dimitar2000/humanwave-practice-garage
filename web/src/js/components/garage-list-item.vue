@@ -3,6 +3,7 @@
         <div class="garage-name">
             <span class="name">{{ garage.name }}</span>
             <button @click="refresh">Refresh</button>
+            <button @click="toggleDisplayCarForm">{{ addCarButtonLabel }}</button>
             <template v-if="!editing">
                 <button type="button" class="btn btn-primary" @click="editing=!editing">Edit</button>
                 <button type="button" class="btn btn-danger" @click="deleteGarage">Delete</button>
@@ -15,14 +16,19 @@
         <div v-if="editing" class="edit-garage">
             <garage-form :garage="garage" @change="editing = false; Object.assign(updated_garage, garage)"></garage-form>
         </div>
+        <div v-if="displayCarForm" >
+            <car-form></car-form>
+        </div>
     </div>
 </template>
 
 <script>
     import GarageForm from "./garage-form";
+    import CarForm from './car/car-form.vue';
+
     export default {
         name: "garage-list-item",
-        components: {GarageForm},
+        components: {GarageForm, CarForm},
         props: {
             garage: {
                 type: Object,
@@ -32,13 +38,22 @@
         data() {
             return {
                 updated_garage: {},
-                editing: false
+                editing: false,
+                displayCarForm: false
             }
         },
         mounted() {
             this.updated_garage = Object.assign({}, this.garage)
         },
+        computed: {
+            addCarButtonLabel() {
+                return this.displayCarForm ? "Hide Car Form" : "Add Car";
+            }
+        },
         methods: {
+            toggleDisplayCarForm() {
+                this.displayCarForm = !this.displayCarForm;
+            },
             // save() {
             //     this.editing = false
             //     $.ajax({

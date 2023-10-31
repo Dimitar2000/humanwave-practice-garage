@@ -20,11 +20,7 @@
             <car-form @submit-data="addCarToGarage"></car-form>
         </div>
         <div class="garage-cars-list">
-            <ul>
-                <li v-for="car in cars" :key="car.id">
-                    <car-list-item :name="car.name" :owner="car.owner" :price="car.price"></car-list-item>
-                </li>
-            </ul>
+            <car-list :cars="cars"></car-list>
         </div>
     </div>
 </template>
@@ -32,11 +28,11 @@
 <script>
     import GarageForm from "./garage-form";
     import CarForm from './car/car-form.vue';
-    import CarListItem from './car/car-list-item.vue';
+    import CarList from './car/car-list.vue';
 
     export default {
         name: "garage-list-item",
-        components: {GarageForm, CarForm, CarListItem},
+        components: {GarageForm, CarForm, CarList},
         props: {
             garage: {
                 type: Object,

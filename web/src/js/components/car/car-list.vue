@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="card">
         <div v-for="car in cars" :key="car.id">
-            <car-list-item :name="car.name" :owner="car.owner" :price="car.price"></car-list-item>
             <button @click="deleteCarFromList(car.id)">Delete</button>
+            <car-list-item :name="car.name" :owner="car.owner" :price="car.price"></car-list-item>
         </div>
     </div>
 </template>
@@ -25,5 +25,7 @@ export default {
 </script>
 
 <style>
-
+.card {
+    width: fit-content;
+}
 </style>

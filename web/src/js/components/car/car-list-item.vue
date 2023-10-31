@@ -1,8 +1,16 @@
 <template>
-  <div class="card body">
-    <label>Name: {{ name }}</label>
-    <label>Owner: {{ owner }}</label>
-    <label>Price: {{ price }}</label>
+  <div class="card">
+  <ul class="list-group">
+    <li class="list-group-item">
+        Name: <label>{{ name }}</label>
+    </li>
+    <li class="list-group-item">
+        Owner: <label>{{ owner }}</label>
+    </li>
+    <li class="list-group-item">
+        Price: <label>{{ price }}</label>
+    </li>
+  </ul>
   </div>
 </template>
 
@@ -25,8 +33,6 @@ export default {
 
 <style scoped>
 
-.card {
-    border: black 18rem;
-}
+
 
 </style>

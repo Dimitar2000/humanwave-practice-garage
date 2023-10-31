@@ -32,12 +32,13 @@ def garage_list():
 def garage_add():
     logging.warning(request.json)
     garage = Garage.add(props=request.json)
-    return jsonify({
-        'id': garage.id,
-        'name': garage.name,
-        'brand': garage.brand,
-        'postal_country': garage.postal_country
-    })
+    new_garage = request.json
+    new_garage["id"] = garage.id()
+
+    logging.warning("New garage added: ")
+    logging.warning(new_garage)
+
+    return jsonify(new_garage)
 
 @bp.route('/', methods=["PUT"])
 def garage_update():

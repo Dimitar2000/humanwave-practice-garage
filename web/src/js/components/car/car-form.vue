@@ -57,7 +57,13 @@
 
         methods:{
             save() {
-                this.$emit("submit-data", this.newCar);
+                const car = {
+                    name: this.newCar.name,
+                    owner: this.newCar.owner,
+                    price: this.newCar.price
+                }
+
+                this.$emit("submit-data", car);
                 
                 if (this.resetOnSave)
                 {

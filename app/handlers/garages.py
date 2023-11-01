@@ -103,3 +103,17 @@ def car_delete():
     car = Car.get(key=request.json.pop('car_id'))
     car.delete()
     return jsonify({'status': 'OK'})
+
+@bp.route('/car', methods=["PUT"])
+def car_update():
+    props = request.json
+    car = Car.get(key=props.pop('car_id'))
+    # print(garage)
+    car.update(props=props)
+
+    return jsonify({
+        'id': car.id,
+        'name': car.name,
+        'owner': car.owner,
+        'price': car.price
+    })

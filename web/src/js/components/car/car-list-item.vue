@@ -4,16 +4,23 @@
     <p class="car-data">
         <ul class="list-group">
             <li class="list-group-item">
-                Name: <label>{{ name }}</label>
+                Name: <label>{{ updatedCar.name }}</label>
             </li>
             <li class="list-group-item">
-                Owner: <label>{{ owner }}</label>
+                Owner: <label>{{ updatedCar.owner }}</label>
             </li>
             <li class="list-group-item">
-                Price: <label>{{ price }}</label>
+                Price: <label>{{ updatedCar.price }}</label>
             </li>
         </ul>
-        <car-form v-if="editing"></car-form>
+        <!-- When opened, fill in with this cars data -->
+        <car-form v-if="editing" 
+            :name="updatedCar.name" 
+            :owner="updatedCar.owner"
+            :price="updatedCar.price"
+            :resetOnSave="false"
+            @submit-data="updateCarData">
+        </car-form>
     </p>
   </div>
 </template>
@@ -59,6 +66,11 @@ export default {
     methods: {
         toggleEditForm() {
             this.editing = !this.editing
+        },
+
+        updateCarData(newCarData) {
+            this.editing = false;
+            Object.assign(this.updatedCar, newCarData)
         }
     },
 }

@@ -70,7 +70,8 @@ export default {
 
         updateCarData(newCarData) {
             this.editing = false;
-            Object.assign(this.updatedCar, newCarData)
+
+            this.$emit("edit-car", newCarData);
         }
     },
 }

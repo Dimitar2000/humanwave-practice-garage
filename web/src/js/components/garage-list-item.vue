@@ -23,7 +23,11 @@
                 <car-form @submit-data="addCarToGarage"></car-form>
             </div>
             <div>
-                <car-list :cars="cars" @remove-car="removeCarFromGarage"></car-list>
+                <car-list 
+                    :cars="cars" 
+                    
+                    @remove-car="removeCarFromGarage"
+                    @update-car="updateCar"></car-list>
             </div>
         </div>
     </div>
@@ -88,6 +92,23 @@
                 }).always(() => {
                 })
             },
+            updateCar(id, newCarData) {
+                newCarData["car_id"] = id;
+
+                console.info("GarageListItem:updateCar - ", newCarData);
+                
+                // Send a PUT request to update the car data
+                $.ajax({
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    url: `/garages/car`,
+                    data: JSON.stringify(newCarData)
+                }).then((data) => {
+                    console.log("Car was updated");
+                    this.refresh();
+                }).always(() => {
+                })
+            },
             deleteGarage() {
                 $.ajax({
                     type: 'DELETE',
@@ -120,6 +141,7 @@
                     url: `/garages/car?garage_id=${this.garage.id}`
                 }).then((data) => {
                     console.log("Cars fetched: ", data)
+                    this.cars = []
                     this.cars = data
                 }).always(() => {})
             } 

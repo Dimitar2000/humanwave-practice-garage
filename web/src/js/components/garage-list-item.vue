@@ -116,7 +116,9 @@
                     data: JSON.stringify(newCarData)
                 }).then((data) => {
                     console.log("--- Car was updated");
-                    this.refresh();
+
+                    this.load_cars();
+
                 }).always(() => {
                 })
             },
@@ -137,13 +139,15 @@
                     contentType: 'application/json',
                     url: `/garages/?garage=${this.garage.id}`,
                 }).then((data) => {
-                    console.log(data)
+                    console.log("Garage fetched: ", data)
                     Object.assign(this.garage, data) // watch does not work this way then we need to use deep watch
                     Object.assign(this.updated_garage, this.garage)
+
+                    this.load_cars();
+
                 }).always(() => {
                 })
 
-                this.load_cars();
             },
 
             load_cars() {

@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <button @click="toggleEditForm">Edit</button>
+    <button @click="toggleEditForm">{{!editing ? "Edit" : "Cancel"}}</button>
     <p class="car-data">
         <ul class="list-group">
             <li class="list-group-item">

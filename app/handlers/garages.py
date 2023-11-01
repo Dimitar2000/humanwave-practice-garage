@@ -56,8 +56,19 @@ def garage_update():
 
 @bp.route('/', methods=["DELETE"])
 def garage_delete():
-    garage = Garage.get(key=request.json.pop('garage'))
+
+    # Get the garage id
+    garage_key = request.json.pop('garage')
+
+    # Delete all cars in the garage
+    garage_cars = Car.list(garage_id=garage_key)
+    for car in garage_cars:
+        car.delete()
+
+    # Delete the garage
+    garage = Garage.get(key=garage_key)
     garage.delete()
+
     return jsonify({'status': 'OK'})
 
 @bp.route('/car', methods=["POST"])

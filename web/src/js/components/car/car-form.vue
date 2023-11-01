@@ -23,19 +23,46 @@
     export default {
         name: "car-form",
         emits: ["submit-data"],
-        data() {
-            return {
-                newCar: {
-                    name: '',
-                    owner: '',
-                    price: null
-                }
+        props: {
+            name: {
+                required: false,
+                default: ""
+            },
+            owner: {
+                required: false,
+                default: ""
+            },
+            price: {
+                required: false,
+                default: null
+            },
+            resetOnSave: {
+                required: false,
+                default: true
             }
         },
+        data() {
+            return {
+                newCar: null
+            }
+        },
+
+        created() {
+            this.newCar = {
+                name: this.name,
+                owner: this.owner,
+                price: this.price
+            }
+        },
+
         methods:{
             save() {
                 this.$emit("submit-data", this.newCar);
-                this.resetForm();
+                
+                if (this.resetOnSave)
+                {
+                    this.resetForm();
+                }
             },
             resetForm() {
                 this.newCar = {

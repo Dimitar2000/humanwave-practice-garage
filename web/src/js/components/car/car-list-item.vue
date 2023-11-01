@@ -4,20 +4,20 @@
     <p class="car-data">
         <ul class="list-group">
             <li class="list-group-item">
-                Name: <label>{{ updatedCar.name }}</label>
+                Name: <label>{{ name }}</label>
             </li>
             <li class="list-group-item">
-                Owner: <label>{{ updatedCar.owner }}</label>
+                Owner: <label>{{ owner }}</label>
             </li>
             <li class="list-group-item">
-                Price: <label>{{ updatedCar.price }}</label>
+                Price: <label>{{ price }}</label>
             </li>
         </ul>
         <!-- When opened, fill in with this cars data -->
         <car-form v-if="editing" 
-            :name="updatedCar.name" 
-            :owner="updatedCar.owner"
-            :price="updatedCar.price"
+            :name="name" 
+            :owner="owner"
+            :price="price"
             :resetOnSave="false"
             @submit-data="updateCarData">
         </car-form>
@@ -46,20 +46,6 @@ export default {
     data() {
         return {
             editing: false,
-            updatedCar: {
-                name: null,
-                owner: null,
-                price: null
-            }
-        }
-    },
-
-    created() {
-        // Copy props to updated car
-        this.updatedCar = {
-            name: this.name,
-            owner: this.owner,
-            price: this.price
         }
     },
     

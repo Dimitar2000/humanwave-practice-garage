@@ -99,7 +99,7 @@
                     data: JSON.stringify({car_id: car_id})
                 }).then((data) => {
                     console.log("Car was removed from garage: ", data);
-                    this.refresh();
+                    this.load_cars();
                 }).always(() => {
                 })
             },

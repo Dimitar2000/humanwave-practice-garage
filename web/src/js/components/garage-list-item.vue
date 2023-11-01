@@ -23,11 +23,18 @@
                 <car-form @submit-data="addCarToGarage"></car-form>
             </div>
             <div>
-                <car-list 
-                    :cars="cars" 
-                    
-                    @remove-car="removeCarFromGarage"
-                    @update-car="updateCar"></car-list>
+                <div class="car-list">
+                    <div v-for="car in cars" :key="car.id">
+                        <button @click="removeCarFromGarage(car.id)">Delete</button>
+                        <car-list-item 
+                            :name="car.name" 
+                            :owner="car.owner" 
+                            :price="car.price"
+                            
+                            @edit-car="updateCar($event, car.id)">
+                        </car-list-item>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -36,11 +43,11 @@
 <script>
     import GarageForm from "./garage-form";
     import CarForm from './car/car-form.vue';
-    import CarList from './car/car-list.vue';
+    import carListItem from './car/car-list-item.vue'
 
     export default {
         name: "garage-list-item",
-        components: {GarageForm, CarForm, CarList},
+        components: {GarageForm, CarForm, carListItem},
         props: {
             garage: {
                 type: Object,
@@ -68,15 +75,19 @@
             toggleDisplayCarForm() {
                 this.displayCarForm = !this.displayCarForm;
             },
+
+            // Add car when form is submitted
             addCarToGarage(carData) {
+                console.log("Car to be sent: ", JSON.stringify(carData));
+
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json',
                     url: `/garages/car`,
                     data: JSON.stringify({carData: carData, garage_id: this.garage.id})
-                }).then((data) => {
-                    console.log("Car was added to garage: ", carData);
-                    this.cars.push(carData)
+                }).then((resp_data) => {
+                    console.log("Car was added to garage: ", resp_data);
+                    this.cars.push(resp_data)
                 }).always(() => {
                 })
             },
@@ -92,8 +103,8 @@
                 }).always(() => {
                 })
             },
-            updateCar(id, newCarData) {
-                newCarData["car_id"] = id;
+            updateCar(newCarData, id) {
+                newCarData["car_id"] = id
 
                 console.info("GarageListItem:updateCar - ", newCarData);
                 
@@ -104,7 +115,7 @@
                     url: `/garages/car`,
                     data: JSON.stringify(newCarData)
                 }).then((data) => {
-                    console.log("Car was updated");
+                    console.log("--- Car was updated");
                     this.refresh();
                 }).always(() => {
                 })
@@ -134,15 +145,15 @@
 
                 this.load_cars();
             },
+
             load_cars() {
                 $.ajax({
                     type: 'GET',
                     contentType: 'application/json',
                     url: `/garages/car?garage_id=${this.garage.id}`
-                }).then((data) => {
-                    console.log("Cars fetched: ", data)
-                    this.cars = []
-                    this.cars = data
+                }).then((resp) => {
+                    console.log("Cars fetched: ", resp)
+                    this.cars = resp
                 }).always(() => {})
             } 
         },
@@ -156,6 +167,10 @@
 </script>
 
 <style scoped>
+
+    .car-list {
+        width: fit-content;
+    }
     .garage-item-grid {
 		display: grid;
 		grid-template-columns: 1fr 3fr;

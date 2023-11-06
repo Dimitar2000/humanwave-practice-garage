@@ -3,6 +3,7 @@
         <h1>Home</h1>
         <h2>{{ msg }}</h2>
         <router-link to="/garages">Garages</router-link>
+        <router-link to="/mitko">Go to About</router-link>
         <button @click="redirectRequest">Redirect to Worker</button>
     </div>
 </template>

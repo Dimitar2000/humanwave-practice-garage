@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home'
 import Garages from '../components/garagelist'
+import About from '../components/About.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,12 @@ export default new Router({
             path: '/garages',
             name: 'garages',
             component: Garages
+        },
+
+        {
+            path: '/mitko',
+            name: 'mitko',
+            component: About
         }
 
     ]

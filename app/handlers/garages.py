@@ -2,12 +2,15 @@ from flask import Blueprint, abort, jsonify, request, redirect
 from shared.model.garage import Garage
 from shared.model.car import Car
 import logging
+import requests
 
 bp = Blueprint(name='garages', import_name=__name__, url_prefix='/garages')
 
 @bp.route('/worker', methods=["GET"])
 def redirect_route():
-    return redirect("http://localhost:8082/", code=302)
+    r = requests.get(url = 'http://localhost:8082/')
+    return jsonify(r.json())
+
 
 # @garages.route('/', defaults={'page': 'index'})
 @bp.route('/', methods=["GET"])

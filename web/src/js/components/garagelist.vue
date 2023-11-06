@@ -11,6 +11,8 @@
 				<garage-list-item :garage="g" @change-delete="deleteGarage">hello</garage-list-item>
 			</li>
 		</ul>
+
+		<router-link to="/mitko">To About</router-link>
 	</div>
 </template>
 
@@ -54,6 +56,7 @@
 			}
 		},
 		created: function() {
+			console.log('created!');
 			this.load();
 		}
 	}
